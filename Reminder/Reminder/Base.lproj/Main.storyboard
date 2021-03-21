@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="6as-Vl-KpH">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -13,23 +14,30 @@
             <objects>
                 <viewController id="SyH-wf-8VC" customClass="ReminderTableViewController" customModule="Reminder" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jMH-ww-aYY">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="LTR-fW-q9E">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="44" width="600" height="556"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ReminderCellId" textLabel="u3G-TK-PTw" style="IBUITableViewCellStyleDefault" id="H1H-6J-1T5">
-                                        <rect key="frame" x="20" y="55.5" width="374" height="43.5"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ReminderCellId" textLabel="u3G-TK-PTw" detailTextLabel="9ed-zz-NSm" style="IBUITableViewCellStyleSubtitle" id="H1H-6J-1T5">
+                                        <rect key="frame" x="16" y="55.5" width="568" height="55.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="H1H-6J-1T5" id="5SN-x0-Sh9">
-                                            <rect key="frame" x="0.0" y="0.0" width="374" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="568" height="55.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="u3G-TK-PTw">
-                                                    <rect key="frame" x="20" y="0.0" width="334" height="43.5"/>
+                                                    <rect key="frame" x="16" y="10" width="33" height="20.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="9ed-zz-NSm">
+                                                    <rect key="frame" x="16" y="31.5" width="44" height="14.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -40,39 +48,34 @@
                                 <sections/>
                                 <connections>
                                     <outlet property="dataSource" destination="SyH-wf-8VC" id="mb8-2f-bZ0"/>
+                                    <outlet property="delegate" destination="SyH-wf-8VC" id="mwc-Aq-Uvw"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rel-Ko-6Hl">
-                                <rect key="frame" x="354" y="44" width="40" height="22"/>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="agd-oZ-5sP"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="LTR-fW-q9E" firstAttribute="top" secondItem="agd-oZ-5sP" secondAttribute="top" id="Hr0-TC-gdE"/>
+                            <constraint firstItem="LTR-fW-q9E" firstAttribute="trailing" secondItem="agd-oZ-5sP" secondAttribute="trailing" id="Y1J-cU-cpe"/>
+                            <constraint firstItem="LTR-fW-q9E" firstAttribute="bottom" secondItem="agd-oZ-5sP" secondAttribute="bottom" id="bWa-nU-Bm7"/>
+                            <constraint firstItem="LTR-fW-q9E" firstAttribute="leading" secondItem="agd-oZ-5sP" secondAttribute="leading" id="eT0-pR-wFF"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="MqA-7V-i82">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="MGc-0P-GqP">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="rel-Ko-6Hl">
+                                <rect key="frame" x="540" y="14" width="40" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="haR-JC-P5R"/>
                                 </constraints>
                                 <state key="normal" image="plus" catalog="system"/>
                                 <connections>
-                                    <action selector="reminderTableViewAction:" destination="SyH-wf-8VC" eventType="touchUpInside" id="g7s-oZ-1tx"/>
+                                    <action selector="addNewReminderAction:" destination="SyH-wf-8VC" eventType="touchUpInside" id="g7s-oZ-1tx"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AV3-zA-1vj">
-                                <rect key="frame" x="176" y="44" width="97" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="agd-oZ-5sP"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="AV3-zA-1vj" firstAttribute="top" secondItem="agd-oZ-5sP" secondAttribute="top" id="70V-h8-38q"/>
-                            <constraint firstItem="LTR-fW-q9E" firstAttribute="top" secondItem="agd-oZ-5sP" secondAttribute="top" id="Hr0-TC-gdE"/>
-                            <constraint firstItem="LTR-fW-q9E" firstAttribute="trailing" secondItem="agd-oZ-5sP" secondAttribute="trailing" id="Y1J-cU-cpe"/>
-                            <constraint firstItem="LTR-fW-q9E" firstAttribute="bottom" secondItem="agd-oZ-5sP" secondAttribute="bottom" id="bWa-nU-Bm7"/>
-                            <constraint firstItem="LTR-fW-q9E" firstAttribute="leading" secondItem="agd-oZ-5sP" secondAttribute="leading" id="eT0-pR-wFF"/>
-                            <constraint firstItem="AV3-zA-1vj" firstAttribute="leading" secondItem="agd-oZ-5sP" secondAttribute="leading" id="nUD-ex-mGn"/>
-                            <constraint firstItem="rel-Ko-6Hl" firstAttribute="leading" secondItem="AV3-zA-1vj" secondAttribute="trailing" id="wpm-Fc-Erf"/>
-                            <constraint firstItem="rel-Ko-6Hl" firstAttribute="trailing" secondItem="agd-oZ-5sP" secondAttribute="trailing" constant="-20" id="xV1-hQ-dQy"/>
-                            <constraint firstItem="rel-Ko-6Hl" firstAttribute="top" secondItem="agd-oZ-5sP" secondAttribute="top" id="ytY-zN-On4"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="MqA-7V-i82"/>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="reminderTableView" destination="LTR-fW-q9E" id="lFb-BE-CXM"/>
                     </connections>
