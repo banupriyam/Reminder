@@ -77,7 +77,7 @@ class ReminderTableViewController: UIViewController {
         
     }
     
-
+    
     func configureDatePickerFor(textField: UITextField) {
         textField.placeholder = "Date & Time"
         textField.inputView = self.datePicker
@@ -97,19 +97,19 @@ class ReminderTableViewController: UIViewController {
         dateFormatter.timeStyle = .none
         dateTextField?.text = sender.date.toString()
     }
-
-
+    
+    
     func saveAndConfigureNotification(reminderText: String, date: Date) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-           return
-         }
-         
-         let managedContext = appDelegate.persistentContainer.viewContext
+            return
+        }
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
         
         let entity = NSEntityDescription.entity(forEntityName: "ReminderMessage",
-                                       in: managedContext)!
-          
-          let message = NSManagedObject(entity: entity, insertInto: managedContext) as! ReminderMessage
+                                                in: managedContext)!
+        
+        let message = NSManagedObject(entity: entity, insertInto: managedContext) as! ReminderMessage
         
         message.text = reminderText
         message.date = date
@@ -117,15 +117,15 @@ class ReminderTableViewController: UIViewController {
             try managedContext.save()
             reminders.append(message)
             reminderTableView.reloadData()
-          } catch let error as NSError {
+        } catch let error as NSError {
             print("Could not save. \(error), \(error.userInfo)")
-          }
+        }
         let content = UNMutableNotificationContent()
         content.title = "Reminder"
         content.subtitle = reminderText
         content.sound = UNNotificationSound.default
         let components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: date)
-    
+        
         let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
         let  request = UNNotificationRequest(identifier: date.description, content: content, trigger: trigger)
         
@@ -139,6 +139,19 @@ class ReminderTableViewController: UIViewController {
         let managedContext = appDelegate.persistentContainer.viewContext
         try? managedContext.save()
         reminderTableView.reloadData()
+        if let reminderText = reminder.text, let date = reminder.date {
+            let content = UNMutableNotificationContent()
+            content.title = "Reminder"
+            content.subtitle = reminderText
+            content.sound = UNNotificationSound.default
+            let components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: date)
+            
+            let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+            let  request = UNNotificationRequest(identifier: date.description, content: content, trigger: trigger)
+            
+            UNUserNotificationCenter.current().add(request)
+        }
+        
     }
     
     func deleteReminder(at: Int) {
@@ -152,8 +165,11 @@ class ReminderTableViewController: UIViewController {
         try? managedContext.save()
         reminders.remove(at: at)
         reminderTableView.reloadData()
+        if let identifier = reminder.date?.description {
+            UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [identifier])
+        }
     }
-      
+    
     func editReminder(at: Int) {
         let reminder = reminders[at]
         let alertController = UIAlertController(title: "Reminder", message: nil, preferredStyle: .alert)
@@ -171,6 +187,9 @@ class ReminderTableViewController: UIViewController {
             guard let textField = alertController.textFields?.first,
                   let reminderText = textField.text else {
                 return
+            }
+            if let identifier = reminder.date?.description {
+                UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [identifier])
             }
             reminder.text = reminderText
             reminder.date = self.datePicker.date
@@ -197,22 +216,22 @@ extension ReminderTableViewController: UITableViewDataSource, UITableViewDelegat
         cell.detailTextLabel?.text = reminder.date?.toString()
         return cell
     }
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-            
-            alertController.addAction(UIAlertAction(title: "Edit", style: .default , handler:{ (UIAlertAction)in
-                self.editReminder(at: indexPath.row)
-            }))
-
-            alertController.addAction(UIAlertAction(title: "Delete", style: .destructive , handler:{ (UIAlertAction)in
-                self.deleteReminder(at: indexPath.row)
-            }))
-            
-            alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler:{ (UIAlertAction)in
-            }))
-
-            self.present(alertController, animated: true, completion: nil)
+        
+        alertController.addAction(UIAlertAction(title: "Edit", style: .default , handler:{ (UIAlertAction)in
+            self.editReminder(at: indexPath.row)
+        }))
+        
+        alertController.addAction(UIAlertAction(title: "Delete", style: .destructive , handler:{ (UIAlertAction)in
+            self.deleteReminder(at: indexPath.row)
+        }))
+        
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler:{ (UIAlertAction)in
+        }))
+        
+        self.present(alertController, animated: true, completion: nil)
     }
 }
 
